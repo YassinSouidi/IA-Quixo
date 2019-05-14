@@ -19,28 +19,28 @@ class Server:
         if cherrypy.request.method == "OPTIONS":
             return ''
         
-        self.identifier_joueur()
+        self.identification_joueur()
         return {"move":self.IA(),"message": "I'm Smart"  }
 
 
 
-    def coup_possible(self):
-        listepos2=[]
-        listeindice=[0,1,2,3,4,5,9,10,14,15,19,20,24]
+    def coup_existant(self):
+        liste_coup_existant=[]
+        liste_coup_possible=[0,1,2,3,4,5,9,10,14,15,19,20,24]
         body = cherrypy.request.json
 
         for i in range(0, len(body["game"])):
             value =body["game"][i]
-            if value == self.joueur and i in listeindice:
-                	listepos2.append([i])
-            if value == None and i in listeindice :
-                listepos2.append([i])
-            if value == self.adversaire and i in listepos2:
-                listepos2.remove(i)
-        return listepos2
+            if value == self.joueur and i in liste_coup_possible:
+                	liste_coup_existant.append([i])
+            if value == None and i in liste_coup_possible :
+                liste_coup_existant.append([i])
+            if value == self.adversaire and i in liste_coup_existant:
+                liste_coup_existant.remove(i)
+        return liste_coup_existant
 
 
-    def identifier_joueur(self):
+    def identification_joueur(self):
         body = cherrypy.request.json
         if body["players"][0] == body["you"]:
             self.joueur=0
@@ -54,40 +54,40 @@ class Server:
 
     def Random(self):
         print('random####')
-        liste=choice(self.coup_possible())
+        liste=choice(self.coup_existant())
         a=liste[0]
-        direc1={"orientation":["S","E"]}
-        direc2={"orientation":["S","E","W"]}
-        direc3={"orientation":["S","W"]}
-        direc4={"orientation":["S","E","N"]}
-        direc5={"orientation":["N","E"]}
-        direc6={"orientation":["S","N","W"]}
-        direc7={"orientation":["N","E","W"]}
-        direc8={"orientation":["N","W"]}
+        direc_haut_gauche={"orientation":["S","E"]}
+        direc_haut_milieu={"orientation":["S","E","W"]}
+        direc_haut_droit={"orientation":["S","W"]}
+        direc_gauche_milieu={"orientation":["S","E","N"]}
+        direc_bas_gauche={"orientation":["N","E"]}
+        direc_droit_milieu={"orientation":["S","N","W"]}
+        direc_bas_milieu={"orientation":["N","E","W"]}
+        direc_bas_droit={"orientation":["N","W"]}
 
         if a == 0:
-            direction= choice(direc1["orientation"])
+            direction_choisie= choice(direc_haut_gauche["orientation"])
         elif a ==1  or a == 2 or a == 3:
-            direction= choice(direc2["orientation"])
+            direction_choisie= choice(direc_haut_milieu["orientation"])
         elif a == 4:
-            direction= choice(direc3["orientation"])
+            direction_choisie= choice(direc_haut_droit["orientation"])
         elif a ==5 or a == 10 or a == 15:
-            direction= choice(direc4["orientation"])
+            direction_choisie= choice(direc_gauche_milieu["orientation"])
         elif a == 20:
-            direction= choice(direc5["orientation"])
+            direction_choisie= choice(direc_bas_gauche["orientation"])
         elif a ==9 or a == 14 or a == 19:
-            direction= choice(direc6["orientation"])
+            direction_choisie= choice(direc_droit_milieu["orientation"])
         elif a ==21 or a == 22 or a == 23:
-            direction= choice(direc7["orientation"])
+            direction_choisie= choice(direc_bas_milieu["orientation"])
         elif a == 24:
-            direction= choice(direc8["orientation"])
+            direction_choisie= choice(direc_bas_droit["orientation"])
 
-        return {"cube":int(a),"direction":str(direction)}
+        return {"cube":int(a),"direction":str(direction_choisie)}
 
         
     
     def IA(self):
-        self.identifier_joueur()
+        self.identification_joueur()
         liste= [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
         move_mat= np.array(liste).reshape(5,5)  # matrice avec les cubes
 
