@@ -17,3 +17,6 @@ Lorsque nous possédons 4 X ou O sur la même ligne ou colonne nous essayons de 
     -Random
     -Cherrypy
     -sys
+## Auteurs
+    Finias Calugar 17184
+    Yassin Souidi 17031
