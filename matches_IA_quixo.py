@@ -30,9 +30,10 @@ class Server:
         cherrypy.response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, X-Requested-With'
         if cherrypy.request.method == "OPTIONS":
             return ''
-        
+        w=["HAHAHAHAHA tu te crois malin","hmmmm très intéressant ce style de jeu","penses-tu vraiment pouvoir nous battre?","Bien joué pour ce coup","Tu a gagné une bataille mais pas la guerre","J'en étais sur","En vrai t'es pas si fort que ça","Franchement tu me deçois","Pffffff","je ne m'avoue pas vaincu","CLAP CLAP","Seul Chuck Norris peut me vaincre","NANI?!?!?!?!?!?!?!?!","Même yamcha est plus fort que toi"]
+        a = choice(w)
         self.identifier_joueur()
-        return {"move":self.IA(),"message": "I'm Smart"  }
+        return {"move":self.IA(),"message": a }
 
 
  
@@ -67,7 +68,7 @@ class Server:
 
 
     def Random(self):                                         #Definition d'une fonction random à utiliser si aucun coup de la stratégie n'est possible
-        print('random####')
+
         liste=choice(self.coup_possible())                    # choix effectué parmi la liste de coups possibles grace a la librairie choice de random
         a=liste[0]      
         direc1={"orientation":["S","E"]}                      # dictionnaires contentant les differentes directions possibles en fonction du cube                
