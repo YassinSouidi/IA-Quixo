@@ -2,10 +2,9 @@
 
 ## Projet
 
-Ceci est un projet consistant en la création d'une application pour la conception d'un meuble.
+Application pour la création de meuble.
 
 ## Logiciel
-    -C#
     -StarUML
     -Visual Studio
     -Trello
