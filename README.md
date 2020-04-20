@@ -1,5 +1,4 @@
-# KitBox
-# Groupe 5
+# KitBox Groupe 5
 
 ## Projet
 
